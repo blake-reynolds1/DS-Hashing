@@ -155,3 +155,45 @@
     - A means active, E means empty, and D means deleted
   - for chaining-based hashing, deletion is the same as deletion on a linked list
 ## Analysis of Hashing
+* In regard to hashing, with any problem of reasonable size, some collisions are almost certain to occur
+  - Besides minimizing the number of collisions, we should aslo strive to handle collisions efficiently
+* Counting probes for analysis 
+  - Probe: looking at one entry and comparing its key with the target
+  - The number of probes depends on how full the table is 
+    - n: the number of entries in the table
+    - t(hash_size): the size of the array that holds the hash table
+    - load factor: lambda = n/t
+    - For open addressing, lambda can never exceed 1
+    - For chaining, there is no limit on the size of lambda
+  - Chaining and open addressing are considered spearately
+* Empirical comparison
+  - <img width="509" alt="Screen Shot 2022-07-14 at 5 20 27 PM" src="https://user-images.githubusercontent.com/89602311/179098172-df123e70-3e84-4637-b774-674157ee9a43.png">
+* Conclusion
+  - The performance depends largely on the load factor lambda, not on the number of entries in the table
+    - Retrieval from a hash table with 20,000 entries in 40,000 possible positions is no slower, on average, than retrieval from a table with 20 entries in 40 possible positions
+  - Time complexity: O(1) if the load factor is controlled under a threshold
+* Analysis of Chaining
+  - Retrieval from a chained hash table with load factor lambda requires, on average, approximately 1 + 1/2lambda probes in the successful case and lambda probes in unsuccessful case
+  - Chaining consistently requres fewer probes than open addressing
+    - Chaining is good for large records and especially advantageous when unsuccessful searches are common
+  - Traversal of the linked lists is usually slower than array access does, which can reduce the advantage, especially if key comparisons can be done quickly
+    - Dynamic memory allocation degrades performance compared to static allocation
+  - Links (pointers) may take too much space
+    - If records are large, the space for links is negligible
+## Hashing Applications
+* Cryptographic
+  - A cryptographic hash function is a hash function that takes an arbitrary block of data and returns a fixed-size bit string, the cryptogrpahic hash value
+  - E.g., password hash, digital signature, secure e-commerce
+* Compiler
+  - Compiler use hash tables to keep track of declared variables and functions along with their memory addresses to quickly access them
+  - The data structure is called a symbol table
+* Spelling checkers for misspelling detecting
+  - An entire dictionary can be pre-hashed
+  - The word user entered can be checked in constant time
+## Self Test 
+* <img width="717" alt="Screen Shot 2022-07-14 at 5 37 48 PM" src="https://user-images.githubusercontent.com/89602311/179099983-b55cff7a-89e3-4375-89fa-f382f61731bd.png">
+* Chaining a hash table
+  - <img width="394" alt="Screen Shot 2022-07-14 at 5 38 05 PM" src="https://user-images.githubusercontent.com/89602311/179100013-4a042f82-b9b5-45a5-83d9-a248488642b6.png">
+## Extended Readings
+* Using user defined class as the key in hashing https://www.geeksforgeeks.org/how-to-create-an-unordered_map-of-user-defined-class-in-cpp/
+* Bloom filter https://en.wikipedia.org/wiki/Bloom_filter
